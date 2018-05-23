@@ -32,7 +32,13 @@ namespace Chapter_6___beehive_management_system
             bool workerAvailable;
             workerAvailable = queen.AssignWork(workerBeeJob.Text,(int)shifts.Value);
             if (!workerAvailable)
-                MessageBox.Show("There is no worker available");
+                MessageBox.Show($"There is no worker available to do the job '{workerBeeJob.Text}",
+                    "The queen bee says...");
+            else
+            {
+                MessageBox.Show($"The job '{workerBeeJob.Text}' will be done in {shifts.Value} shifts",
+                    "The queen bee says...");
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -1,4 +1,7 @@
-﻿namespace Chapter_6___beehive_management_system
+﻿using System;
+using System.Diagnostics;
+
+namespace Chapter_6___beehive_management_system
 {
     class Worker
     {
@@ -19,21 +22,21 @@
         public Worker(string[] jobs)
         {
             jobsICanDo = jobs;
-            shiftsWorked = 0;
             shiftsToWork = 0;
             currentJob = "";
         }
 
         public bool DoThisJob(string todo, int shifts)
         {
-            if (shiftsToWork != 0)
+            if (!String.IsNullOrEmpty(currentJob))
                 return false;
             foreach (string job in jobsICanDo)
             {
                 if (job == todo)
                 {
                     currentJob = todo;
-                    shiftsToWork = shifts;
+                    this.shiftsToWork = shifts;
+                    shiftsWorked = 0;
                     return true;
                 }
             }
@@ -42,16 +45,15 @@
 
         public bool DidYouFinish()
         {
-            if (currentJob != "")
+            if (String.IsNullOrEmpty(currentJob))
+                return false;
+            shiftsWorked++;
+            if (shiftsWorked > shiftsToWork)
             {
-                shiftsWorked++;
-                if (ShiftsLeft == 0)
-                {
-                    currentJob = "";
-                    shiftsWorked = 0;
-                    shiftsToWork = 0;
-                    return true;
-                }
+                currentJob = "";
+                shiftsWorked = 0;
+                shiftsToWork = 0;
+                return true;
             }
             return false;
         }

@@ -34,21 +34,22 @@ namespace Chapter_6___beehive_management_system
                 if (finished)
                 {
                     report += $"Worker #{i + 1} finished the job\r\n";
-                    report += $"Worker #{i + 1} is not working\r\n";
                 }
-                else if (workers[i].ShiftsLeft == 1)
-                    report += $"Worker #{i+1} will be done with" +
-                              $" '{workers[i].CurrentJob}'" +
-                              $" after this shift\r\n";
-                else if (workers[i].ShiftsLeft == 0)
+
+                if (String.IsNullOrEmpty(workers[i].CurrentJob))
                 {
                     report += $"Worker #{i + 1} is not working\r\n";
                 }
                 else
-                {
-                    report += $"Worker #{i + 1} is doing" +
-                              $" '{workers[i].CurrentJob}' for" +
-                              $" {workers[i].ShiftsLeft} more shifts\r\n";
+                    if (workers[i].ShiftsLeft > 0)
+                        report += $"Worker #{i + 1} is doing" +
+                                  $" '{workers[i].CurrentJob}' for" +
+                                  $" {workers[i].ShiftsLeft} more shifts\r\n";
+                    else
+                    {
+                    report += $"Worker #{i + 1} will be done with" +
+                              $" '{workers[i].CurrentJob}'" +
+                              $" after this shift\r\n";
                 }
             }
             return report;
