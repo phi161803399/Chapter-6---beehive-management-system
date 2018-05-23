@@ -91,9 +91,24 @@
             // shifts
             // 
             this.shifts.Location = new System.Drawing.Point(133, 33);
+            this.shifts.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.shifts.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.shifts.Name = "shifts";
             this.shifts.Size = new System.Drawing.Size(120, 20);
             this.shifts.TabIndex = 2;
+            this.shifts.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             // 
             // button1
             // 

@@ -21,6 +21,7 @@
             jobsICanDo = jobs;
             shiftsWorked = 0;
             shiftsToWork = 0;
+            currentJob = "";
         }
 
         public bool DoThisJob(string todo, int shifts)
@@ -30,15 +31,29 @@
             foreach (string job in jobsICanDo)
             {
                 if (job == todo)
+                {
                     currentJob = todo;
+                    shiftsToWork = shifts;
                     return true;
+                }
             }
             return false;
         }
 
         public bool DidYouFinish()
         {
-            
+            if (currentJob != "")
+            {
+                shiftsWorked++;
+                if (ShiftsLeft == 0)
+                {
+                    currentJob = "";
+                    shiftsWorked = 0;
+                    shiftsToWork = 0;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

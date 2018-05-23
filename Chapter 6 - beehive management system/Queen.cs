@@ -25,23 +25,32 @@ namespace Chapter_6___beehive_management_system
         public string WorkTheNextShift()
         {
             shiftNumber++;
-            foreach (Worker worker in workers)
-                worker.DidYouFinish();
             string report = String.Empty;
-            report += $"Report for shift #{shiftNumber}\n";
-            for (int i = 0;i<workers.Length;i++)
-                if (workers[i].ShiftsLeft == 1)
-                    report += $"Worker #{i} will be done with '{workers[i].CurrentJob}' after this shift\n";
+            report += $"Report for shift #{shiftNumber}\r\n";
+            for (int i = 0; i < workers.Length; i++)
+            {
+                bool finished;
+                finished = workers[i].DidYouFinish();
+                if (finished)
+                {
+                    report += $"Worker #{i + 1} finished the job\r\n";
+                    report += $"Worker #{i + 1} is not working\r\n";
+                }
+                else if (workers[i].ShiftsLeft == 1)
+                    report += $"Worker #{i+1} will be done with" +
+                              $" '{workers[i].CurrentJob}'" +
+                              $" after this shift\r\n";
                 else if (workers[i].ShiftsLeft == 0)
                 {
-                    report += $"Worker #{i} finished the job\n";
+                    report += $"Worker #{i + 1} is not working\r\n";
                 }
                 else
                 {
-                    report += $"Worker #{i} is doing" +
+                    report += $"Worker #{i + 1} is doing" +
                               $" '{workers[i].CurrentJob}' for" +
-                              $" {workers[i].ShiftsLeft} more shifts\n";
+                              $" {workers[i].ShiftsLeft} more shifts\r\n";
                 }
+            }
             return report;
         }
     }
