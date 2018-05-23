@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Chapter_6___beehive_management_system
+namespace beehive_2._0
 {
     class Queen:Bee
     {
         private Worker[] workers;
         private int shiftNumber = 0;
-        public Queen(Worker[] workers)
+        public Queen(double weightMg, Worker[] workers):base(weightMg)
         {
             this.workers = workers;
         }
@@ -24,6 +24,7 @@ namespace Chapter_6___beehive_management_system
 
         public string WorkTheNextShift()
         {
+            double honeyConsumption = 0;
             shiftNumber++;
             string report = String.Empty;
             report += $"Report for shift #{shiftNumber}\r\n";
@@ -51,7 +52,12 @@ namespace Chapter_6___beehive_management_system
                               $" '{workers[i].CurrentJob}'" +
                               $" after this shift\r\n";
                 }
+
+                honeyConsumption += workers[i].HoneyConsumptionRate();
             }
+
+            honeyConsumption += this.HoneyConsumptionRate();
+            report += $"Total honey consumed for the shift: {honeyConsumption} units\r\n";
             return report;
         }
     }

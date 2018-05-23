@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 
-namespace Chapter_6___beehive_management_system
+namespace beehive_2._0
 {
     class Worker:Bee
     {
@@ -9,6 +8,7 @@ namespace Chapter_6___beehive_management_system
         private int shiftsToWork;
         private int shiftsWorked;
         private string currentJob;
+        private const double honeyUnitsPerShiftWorked = .65;
 
         public string CurrentJob
         {
@@ -19,7 +19,7 @@ namespace Chapter_6___beehive_management_system
             get { return shiftsToWork - shiftsWorked; }
         }
 
-        public Worker(string[] jobs)
+        public Worker(double weightMg, string[] jobs):base(weightMg)
         {
             jobsICanDo = jobs;
             shiftsToWork = 0;
@@ -56,6 +56,13 @@ namespace Chapter_6___beehive_management_system
                 return true;
             }
             return false;
+        }
+
+        public override double HoneyConsumptionRate()
+        {
+            double consumption = base.HoneyConsumptionRate();
+            consumption += shiftsWorked * honeyUnitsPerShiftWorked;
+            return consumption;
         }
     }
 }
